@@ -37,7 +37,7 @@ class _MercadoriaState extends State<Cadastro> {
 
   void _initList() {
     List<String> produto = [
-      'Hamburgao',
+      'Hamburgão',
       'Coxinha',
       'Coca-Cola',
       'Cerveja',
@@ -50,7 +50,7 @@ class _MercadoriaState extends State<Cadastro> {
     List<String> lanchonete = [
       'Marcos Freire',
       'Juscelino Kubitschek',
-      'Deposito'
+      'Depósito'
     ];
 
     List<DropdownMenuItem> addList = [];

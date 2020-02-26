@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'cadastro.dart';
+import 'main.dart';
 
 class Menu extends StatefulWidget {
   @override
@@ -14,7 +16,7 @@ class _MenuState extends State<Menu> {
       height: 558,
       width: 282,
       decoration: BoxDecoration(
-        color: Colors.greenAccent,
+        color: Colors.lightGreen,
         borderRadius: BorderRadius.only(
           topRight: Radius.circular(12),
           bottomRight: Radius.circular(12),
@@ -35,6 +37,7 @@ class _MenuState extends State<Menu> {
             ),
           ),
           ListTile(
+            contentPadding: EdgeInsets.only(left: 25),
             onTap: () {
               Navigator.of(context).pop();
               Navigator.push(
@@ -44,7 +47,40 @@ class _MenuState extends State<Menu> {
                 ),
               );
             },
-            title: Text('Cadastro'),
+            leading: Icon(
+              FontAwesomeIcons.edit,
+              color: Colors.white,
+            ),
+            title: Text(
+              'Cadastro',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 20,
+              ),
+            ),
+          ),
+          ListTile(
+            contentPadding: EdgeInsets.only(left: 25),
+            onTap: () {
+              Navigator.of(context).pop();
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => MyApp(),
+                ),
+              );
+            },
+            leading: Icon(
+              FontAwesomeIcons.home,
+              color: Colors.white,
+            ),
+            title: Text(
+              'Home',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 20,
+              ),
+            ),
           ),
         ],
       ),
