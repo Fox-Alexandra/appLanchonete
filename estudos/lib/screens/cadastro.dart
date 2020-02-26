@@ -1,6 +1,7 @@
+import 'package:estudos/models/produto.dart';
 import 'package:flutter/material.dart';
 import 'package:estudos/widgets/extended_button.dart';
-import 'package:estudos/bloc/produtos_bloc.dart';
+import 'package:estudos/bloc/cadastro_bloc.dart';
 
 class Cadastro extends StatefulWidget {
   @override
@@ -12,14 +13,16 @@ class _MercadoriaState extends State<Cadastro> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   /// Controller do campo nome
-  String _mercadoriaController;
+  String _mercadoria;
 
-  String _tipoMercadoriaController;
+  String _tipoMercadoria;
+
+  String _lanchonete;
 
   final TextEditingController _quantMercadoriaController =
       TextEditingController();
 
-  String _lanchoneteController;
+  final FocusNode _quantMercadoriaNode = FocusNode();
 
   List<DropdownMenuItem> listaMercadoria = [];
 
@@ -27,7 +30,19 @@ class _MercadoriaState extends State<Cadastro> {
 
   List<DropdownMenuItem> listaLanchonete = [];
 
-  ControleLista bloc = ControleLista();
+  bool haveError = false;
+
+  String validate(value) {
+    if (value == null || value.isEmpty) {
+      if (!haveError) {
+        setState(() {
+          haveError = true;
+        });
+      }
+      return 'Campo Obrigatório';
+    }
+    return null;
+  }
 
   @override
   void initState() {
@@ -102,12 +117,17 @@ class _MercadoriaState extends State<Cadastro> {
             ExtendedButton(
               isLoading: false,
               onPressed: () {
-                setState(() {});
-                bloc.gravarAlteracaoes(
-                  context,
-                  nome: _mercadoriaController,
-                  tipo: _tipoMercadoriaController,
-                );
+                if (_formKey.currentState.validate()) {
+                  CadastroBloc.getBloc.saveCadastro(
+                    Produto(
+                      mercadoria: _mercadoria,
+                      tipoMercadoria: _tipoMercadoria,
+                      lanchonete: _lanchonete,
+                      qnt: int.tryParse(_quantMercadoriaController.text),
+                    ),
+                  );
+                  _formKey.currentState.reset();
+                }
               },
               padding: EdgeInsets.fromLTRB(
                 16,
@@ -130,7 +150,7 @@ class _MercadoriaState extends State<Cadastro> {
     return SingleChildScrollView(
       padding: EdgeInsets.only(top: 39),
       child: Form(
-        autovalidate: false,
+        autovalidate: haveError,
         key: _formKey,
         child: Column(
           children: <Widget>[
@@ -155,14 +175,16 @@ class _MercadoriaState extends State<Cadastro> {
                         items: listaMercadoria,
                         onChanged: (value) {
                           setState(() {
-                            _mercadoriaController = value;
+                            _mercadoria = value;
                           });
                         },
-                        value: _mercadoriaController,
+                        value: _mercadoria,
                         decoration: InputDecoration(
-                            border: OutlineInputBorder(),
-                            helperText: '',
-                            labelText: 'Mercadoria'),
+                          border: OutlineInputBorder(),
+                          helperText: '',
+                          labelText: 'Mercadoria',
+                        ),
+                        validator: validate,
                       ),
                     ),
                     Padding(
@@ -172,27 +194,32 @@ class _MercadoriaState extends State<Cadastro> {
                         items: listaTipoMercadoria,
                         onChanged: (value) {
                           setState(() {
-                            _tipoMercadoriaController = value;
+                            _tipoMercadoria = value;
                           });
                         },
-                        value: _tipoMercadoriaController,
+                        value: _tipoMercadoria,
                         decoration: InputDecoration(
-                            border: OutlineInputBorder(),
-                            helperText: '',
-                            labelText: 'Tipo'),
+                          border: OutlineInputBorder(),
+                          helperText: '',
+                          labelText: 'Tipo',
+                        ),
+                        validator: validate,
                       ),
                     ),
                     Padding(
                       padding: EdgeInsets.fromLTRB(1, 16, 1, 0),
                       child: TextFormField(
                         textCapitalization: TextCapitalization.words,
+                        keyboardType: TextInputType.number,
+                        focusNode: _quantMercadoriaNode,
                         controller: _quantMercadoriaController,
                         scrollPadding: EdgeInsets.symmetric(vertical: 48),
                         decoration: InputDecoration(
-                            border: OutlineInputBorder(),
-                            helperText: '',
-                            labelText: 'Quantidade'),
-                        onEditingComplete: () {},
+                          border: OutlineInputBorder(),
+                          helperText: '',
+                          labelText: 'Quantidade',
+                        ),
+                        validator: validate,
                       ),
                     ),
                     Padding(
@@ -202,14 +229,15 @@ class _MercadoriaState extends State<Cadastro> {
                         items: listaLanchonete,
                         onChanged: (value) {
                           setState(() {
-                            _lanchoneteController = value;
+                            _lanchonete = value;
                           });
                         },
-                        value: _lanchoneteController,
+                        value: _lanchonete,
                         decoration: InputDecoration(
                             border: OutlineInputBorder(),
                             helperText: '',
                             labelText: 'Lanchonete'),
+                        validator: validate,
                       ),
                     ),
                   ],

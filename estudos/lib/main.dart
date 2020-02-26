@@ -1,22 +1,27 @@
-import 'package:estudos/bloc/produtos_bloc.dart';
+import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:estudos/screens/menu.dart';
+import 'package:estudos/screens/produto_view.dart';
+import 'package:estudos/bloc/cadastro_bloc.dart';
 import 'package:estudos/widgets/rounded_button.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
 
-ControleLista blocLista = ControleLista();
-
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Controle De Fluxo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    return BlocProvider(
+          child: MaterialApp(
+        title: 'Controle De Fluxo',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: MyHomePage(title: 'Tela Inicial'),
       ),
-      home: MyHomePage(title: 'Home'),
+      blocs: [
+        Bloc((i) => CadastroBloc()),
+      ],
     );
   }
 }
@@ -32,20 +37,6 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-
-  List<Widget> _buildList(List<String> entrada) {
-    List<Widget> aux = List<Widget>();
-    entrada.forEach((item) {
-      aux.add(ListTile(title: Text(item)));
-    });
-    return aux;
-  }
-
-  void _incrementCounter() {
-    setState(() {
-      blocLista.saveLista('nome');
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,22 +57,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ),
         drawer: Menu(),
-        body: StreamBuilder(
-          stream: blocLista.streamLista,
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              return ListView(
-                children: _buildList(snapshot.data),
-              );
-            }
-            return ListView();
-          },
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: _incrementCounter,
-          tooltip: 'Increment',
-          child: Icon(Icons.add),
-        ), // This trailing comma makes auto-formatting nicer for build methods.
+        body: ProdutoView(), // This trailing comma makes auto-formatting nicer for build methods.
       ),
     );
   }

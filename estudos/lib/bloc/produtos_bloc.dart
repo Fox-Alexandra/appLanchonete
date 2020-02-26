@@ -21,9 +21,11 @@ class ControleLista extends BlocBase {
     sinkLista.add(addLista);
   }
 
-  Future<void> gravarAlteracaoes(
-    context, {
-    String nome,
-    String tipo,
-  }) async {}
+  @override
+  void dispose() {
+    super.dispose();
+
+    lista.close();
+  }
+
 }
