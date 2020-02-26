@@ -1,5 +1,6 @@
 import 'package:estudos/bloc/cadastro_bloc.dart';
 import 'package:estudos/models/produto.dart';
+import 'package:estudos/screens/cadastro.dart';
 import 'package:flutter/material.dart';
 
 class ConteudoProduto extends StatefulWidget {
@@ -19,8 +20,18 @@ class _ConteudoProdutoState extends State<ConteudoProduto> {
         padding: EdgeInsets.only(top: 35),
         color: Colors.yellow,
         child: ListTile(
+           onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => Cadastro(
+                  produto: value,
+                ),
+              ),
+            );
+          },
             title: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Text(
               value.mercadoria,

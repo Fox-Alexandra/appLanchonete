@@ -4,11 +4,17 @@ import 'package:estudos/widgets/extended_button.dart';
 import 'package:estudos/bloc/cadastro_bloc.dart';
 
 class Cadastro extends StatefulWidget {
+  final Produto produto;
+
+  Cadastro({
+    this.produto,
+  });
+
   @override
-  _MercadoriaState createState() => _MercadoriaState();
+  _CadastroState createState() => _CadastroState();
 }
 
-class _MercadoriaState extends State<Cadastro> {
+class _CadastroState extends State<Cadastro> {
   ///[Form]
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -48,6 +54,11 @@ class _MercadoriaState extends State<Cadastro> {
   void initState() {
     super.initState();
     _initList();
+
+    _mercadoria = widget.produto.mercadoria;
+    _lanchonete = widget.produto.lanchonete;
+    _tipoMercadoria = widget.produto.tipoMercadoria;
+    _quantMercadoriaController.text = widget.produto.qnt.toString();
   }
 
   void _initList() {

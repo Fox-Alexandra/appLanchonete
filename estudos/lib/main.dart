@@ -1,4 +1,5 @@
 import 'package:bloc_pattern/bloc_pattern.dart';
+import 'package:estudos/screens/cadastro.dart';
 import 'package:estudos/screens/menu.dart';
 import 'package:estudos/screens/produto_view.dart';
 import 'package:estudos/bloc/cadastro_bloc.dart';
@@ -12,7 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-          child: MaterialApp(
+      child: MaterialApp(
         title: 'Controle De Fluxo',
         theme: ThemeData(
           primarySwatch: Colors.blue,
@@ -57,7 +58,16 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ),
         drawer: Menu(),
-        body: ProdutoView(), // This trailing comma makes auto-formatting nicer for build methods.
+        body:
+            ProdutoView(), // This trailing comma makes auto-formatting nicer for build methods.
+        floatingActionButton: FloatingActionButton(
+          onPressed: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => Cadastro(),
+            ),
+          ),
+        ),
       ),
     );
   }
