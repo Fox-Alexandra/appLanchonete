@@ -20,6 +20,8 @@ class MyApp extends StatelessWidget {
         ),
         home: MyHomePage(title: 'Tela Inicial'),
       ),
+
+      /// instanciando todos os blocs que serao utilizados no app
       blocs: [
         Bloc((i) => CadastroBloc()),
       ],
@@ -37,6 +39,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  ///Criado uma global key para controle de estado do scaffold
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override

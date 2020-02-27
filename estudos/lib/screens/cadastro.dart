@@ -5,7 +5,7 @@ import 'package:estudos/bloc/cadastro_bloc.dart';
 
 class Cadastro extends StatefulWidget {
   final Produto produto;
-
+  /// Constructor
   Cadastro({
     this.produto,
   });
@@ -15,21 +15,23 @@ class Cadastro extends StatefulWidget {
 }
 
 class _CadastroState extends State<Cadastro> {
+  /// Craido key para controlar o estado do formulario
   ///[Form]
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
-  /// Controller do campo nome
   String _mercadoria;
 
   String _tipoMercadoria;
 
   String _lanchonete;
 
+  /// controller do campo de quantidade
   final TextEditingController _quantMercadoriaController =
       TextEditingController();
 
+  /// Foco do campo quantidade
   final FocusNode _quantMercadoriaNode = FocusNode();
 
+  /// Lista do tipo Drop
   List<DropdownMenuItem> listaMercadoria = [];
 
   List<DropdownMenuItem> listaTipoMercadoria = [];
@@ -38,6 +40,7 @@ class _CadastroState extends State<Cadastro> {
 
   bool haveError = false;
 
+  ///Validacao dos campos
   String validate(value) {
     if (value == null || value.isEmpty) {
       if (!haveError) {
@@ -55,12 +58,18 @@ class _CadastroState extends State<Cadastro> {
     super.initState();
     _initList();
 
-    _mercadoria = widget.produto.mercadoria;
-    _lanchonete = widget.produto.lanchonete;
-    _tipoMercadoria = widget.produto.tipoMercadoria;
-    _quantMercadoriaController.text = widget.produto.qnt.toString();
+    /// Para as variaveis inicializarem com os valores dos campos que estou editando
+    // _mercadoria = widget.produto.mercadoria;
+    // _lanchonete = widget.produto.lanchonete;
+    // _tipoMercadoria = widget.produto.tipoMercadoria;
+    // _quantMercadoriaController.text = widget.produto.qnt.toString();
   }
 
+  /*Inicializacao da lista de 
+  **[Mercadoria]
+  **[TipoProduto]
+  **[Lanchonete]
+  */
   void _initList() {
     List<String> produto = [
       'Hamburgão',
@@ -79,10 +88,12 @@ class _CadastroState extends State<Cadastro> {
       'Depósito'
     ];
 
+    /// Lista auxiliar para armazenar os valores
     List<DropdownMenuItem> addList = [];
     List<DropdownMenuItem> addTipoList = [];
     List<DropdownMenuItem> addlanchoneteList = [];
 
+    ///Percorre cada item da lista monstrando-o
     produto.forEach((item) {
       addList.add(DropdownMenuItem(
         child: Text(item),
@@ -104,6 +115,7 @@ class _CadastroState extends State<Cadastro> {
       ));
     });
 
+    /// adiciona o valor da lista auxiliar á lista fixa
     setState(() {
       listaMercadoria = addList;
       listaTipoMercadoria = addTipoList;
@@ -128,6 +140,7 @@ class _CadastroState extends State<Cadastro> {
             ExtendedButton(
               isLoading: false,
               onPressed: () {
+                /// Se a validacao estiver ok ele cadastra
                 if (_formKey.currentState.validate()) {
                   CadastroBloc.getBloc.saveCadastro(
                     Produto(
@@ -136,6 +149,7 @@ class _CadastroState extends State<Cadastro> {
                       lanchonete: _lanchonete,
                       qnt: int.tryParse(_quantMercadoriaController.text),
                     ),
+                    context,
                   );
                   _formKey.currentState.reset();
                 }
@@ -189,6 +203,8 @@ class _CadastroState extends State<Cadastro> {
                             _mercadoria = value;
                           });
                         },
+
+                        ///Declaro como um value, pois a variavel nao é um controller
                         value: _mercadoria,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(),

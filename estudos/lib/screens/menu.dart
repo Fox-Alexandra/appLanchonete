@@ -43,7 +43,7 @@ class _MenuState extends State<Menu> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => Cadastro(),
+                  builder: (context) => MyApp(),
                 ),
               );
             },
@@ -52,7 +52,7 @@ class _MenuState extends State<Menu> {
               color: Colors.white,
             ),
             title: Text(
-              'Cadastro',
+              'Tela Inicial',
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 20,
@@ -66,7 +66,7 @@ class _MenuState extends State<Menu> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => MyApp(),
+                  builder: (context) => Cadastro(),
                 ),
               );
             },
@@ -75,7 +75,7 @@ class _MenuState extends State<Menu> {
               color: Colors.white,
             ),
             title: Text(
-              'Home',
+              'Cadastro',
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 20,

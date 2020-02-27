@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 ///
 /// [author: Anderson Pereira Brzezinski]
 class RoundedButton extends StatelessWidget {
+  ///constructor
   RoundedButton({
     this.onPressed,
     this.backgroundColor,

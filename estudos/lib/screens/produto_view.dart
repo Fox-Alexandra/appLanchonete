@@ -9,9 +9,12 @@ class ProdutoView extends StatefulWidget {
 }
 
 class _ProdutoViewState extends State<ProdutoView> {
+  /// Cria uma funcao lista do tipo widget, map<string> do tipo produto
   List<Widget> _buildList(Map<String, List<Produto>> produtoCadastrado) {
+    /// cria uma lista do tipo widget
     List<Widget> lista = List<Widget>();
 
+    /// para cada chave e valor do produto cadastrado ele add um listTile a lista
     produtoCadastrado.forEach((key, value) {
       lista.add(
         ListTile(
@@ -22,6 +25,7 @@ class _ProdutoViewState extends State<ProdutoView> {
               MaterialPageRoute(
                 builder: (context) => ConteudoProduto(
                   listaProduto: value,
+                  /// o titile é uma key para assumir o valor key.
                   title: key,
                 ),
               ),
@@ -38,6 +42,7 @@ class _ProdutoViewState extends State<ProdutoView> {
   Widget build(BuildContext context) {
     return Container(
       child: StreamBuilder(
+        ///retorna a stream do bloc
         stream: CadastroBloc.getBloc.streamListaCadastrado,
         builder: (context, snapshot) {
           if (snapshot.hasData) {

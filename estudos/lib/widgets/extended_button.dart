@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ExtendedButton extends StatelessWidget {
+  ///Constructor 
   ExtendedButton(
       {this.padding = const EdgeInsets.all(0),
       this.onPressed,
