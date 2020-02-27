@@ -13,7 +13,6 @@ class ProdutoView extends StatefulWidget {
 
 class _ConteudoProdutoState extends State<ProdutoView> {
   List<Widget> _buildList() {
-
     /// Retorna um valor map(lista) da lista produto
     return produto.map((value) {
       int contador = 0;
@@ -22,18 +21,18 @@ class _ConteudoProdutoState extends State<ProdutoView> {
           contador = contador + item.qnt;
         }
       });
-      
+
       return Container(
         height: 120,
         padding: EdgeInsets.only(top: 10),
-        child: InputDecorator(
+        child: Column (
+          children: <Widget> [InputDecorator(
           decoration: InputDecoration(
             enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.grey, width: 1),
             ),
           ),
           child: ListTile(
-            /// Ao clicar nesse item da lista poder ir para tela de cadastro e alterar seu valor
             title: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -52,16 +51,38 @@ class _ConteudoProdutoState extends State<ProdutoView> {
             ),
           ),
         ),
+          ],
+        ),
       );
     }).toList();
+  }
 
-    /// Transforma o map em uma lista
+  @override
+  Widget _buildTotal() {
+          int contadorTotal = 0;
+      widget.listaProduto.forEach((item) {
+        contadorTotal = contadorTotal + item.qnt;
+      });
+    return Container(
+      child: ListTile(
+                title: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text(
+                      'TOTAL:',
+                      style: TextStyle(fontSize: 20),
+                    ),
+                    Text(
+                      '${contadorTotal}',
+                      style: TextStyle(fontSize: 20, color: Colors.green),)
+                  ],),
+              ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.limeAccent,
       appBar: AppBar(
         backgroundColor: Colors.lightGreen,
         title: Text(widget.title),
@@ -69,6 +90,7 @@ class _ConteudoProdutoState extends State<ProdutoView> {
       body: Container(
         child: ListView(
           children: _buildList(),
+          
         ),
       ),
     );
