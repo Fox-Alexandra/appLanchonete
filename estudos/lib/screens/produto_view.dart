@@ -1,57 +1,75 @@
-import 'package:estudos/bloc/cadastro_bloc.dart';
+import 'package:estudos/config/produto_config.dart';
 import 'package:estudos/models/produto.dart';
-import 'package:estudos/screens/conteudo_produto.dart';
 import 'package:flutter/material.dart';
 
 class ProdutoView extends StatefulWidget {
+  final List<Produto> listaProduto;
+  final String title;
+  ProdutoView({this.listaProduto, this.title});
+
   @override
-  _ProdutoViewState createState() => _ProdutoViewState();
+  _ConteudoProdutoState createState() => _ConteudoProdutoState();
 }
 
-class _ProdutoViewState extends State<ProdutoView> {
-  /// Cria uma funcao lista do tipo widget, map<string> do tipo produto
-  List<Widget> _buildList(Map<String, List<Produto>> produtoCadastrado) {
-    /// cria uma lista do tipo widget
-    List<Widget> lista = List<Widget>();
+class _ConteudoProdutoState extends State<ProdutoView> {
+  List<Widget> _buildList() {
 
-    /// para cada chave e valor do produto cadastrado ele add um listTile a lista
-    produtoCadastrado.forEach((key, value) {
-      lista.add(
-        ListTile(
-          title: Text(key),
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => ConteudoProduto(
-                  listaProduto: value,
-                  /// o titile é uma key para assumir o valor key.
-                  title: key,
+    /// Retorna um valor map(lista) da lista produto
+    return produto.map((value) {
+      int contador = 0;
+      widget.listaProduto.forEach((item) {
+        if (value.idMercadoria == item.mercadoria.idMercadoria) {
+          contador = contador + item.qnt;
+        }
+      });
+      
+      return Container(
+        height: 120,
+        padding: EdgeInsets.only(top: 10),
+        child: InputDecorator(
+          decoration: InputDecoration(
+            enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.grey, width: 1),
+            ),
+          ),
+          child: ListTile(
+            /// Ao clicar nesse item da lista poder ir para tela de cadastro e alterar seu valor
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Text(
+                  value.nomeMercadoria,
+                  style: TextStyle(fontSize: 20),
                 ),
-              ),
-            );
-          },
+                Padding(
+                  padding: EdgeInsets.only(left: 40),
+                ),
+                Text(
+                  '${contador}',
+                  style: TextStyle(fontSize: 20, color: Colors.red),
+                ),
+              ],
+            ),
+          ),
         ),
       );
-    });
+    }).toList();
 
-    return lista;
+    /// Transforma o map em uma lista
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: StreamBuilder(
-        ///retorna a stream do bloc
-        stream: CadastroBloc.getBloc.streamListaCadastrado,
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return ListView(
-              children: _buildList(snapshot.data),
-            );
-          }
-          return ListView();
-        },
+    return Scaffold(
+      backgroundColor: Colors.limeAccent,
+      appBar: AppBar(
+        backgroundColor: Colors.lightGreen,
+        title: Text(widget.title),
+      ),
+      body: Container(
+        child: ListView(
+          children: _buildList(),
+        ),
       ),
     );
   }

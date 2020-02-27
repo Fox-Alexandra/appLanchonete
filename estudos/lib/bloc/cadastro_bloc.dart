@@ -1,13 +1,14 @@
 import 'dart:async';
 
 import 'package:bloc_pattern/bloc_pattern.dart';
+import 'package:estudos/models/lanchonete.dart';
 import 'package:estudos/models/produto.dart';
 import 'package:estudos/widgets/alert.dart';
 import 'package:flutter/material.dart';
 import 'package:rxdart/subjects.dart';
 
 class CadastroBloc extends BlocBase {
-  BehaviorSubject<Map<String, List<Produto>>> listaCadastrado =
+  BehaviorSubject<Map<Lanchonete, List<Produto>>> listaCadastrado =
       BehaviorSubject.seeded(Map());
 
   /// instancia o bloc na classe bloc
@@ -16,7 +17,7 @@ class CadastroBloc extends BlocBase {
   Stream get streamListaCadastrado => listaCadastrado.stream;
 
   ///retorna o ultimo valor add a stream
-  Map<String, List<Produto>> get cadastrado => listaCadastrado.stream.value;
+  Map<Lanchonete, List<Produto>> get cadastrado => listaCadastrado.stream.value;
 
   void saveCadastro(Produto produto, BuildContext context) async {
     Alert alerta = Alert(

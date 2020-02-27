@@ -1,3 +1,6 @@
+import 'identificacao_produto.dart';
+import 'lanchonete.dart';
+
 class Produto {
   Produto({
     this.mercadoria,
@@ -6,8 +9,8 @@ class Produto {
     this.qnt,
   });
 
-  final String mercadoria;
-  final String tipoMercadoria;
-  final String lanchonete;
+  final IdentificacaoProduto mercadoria;
+  final IdentificacaoProduto tipoMercadoria;
+  final Lanchonete lanchonete;
   final int qnt;
 }

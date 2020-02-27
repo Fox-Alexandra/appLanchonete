@@ -1,3 +1,7 @@
+import 'package:estudos/config/produto_config.dart';
+import 'package:estudos/config/lanchonete_config.dart';
+import 'package:estudos/models/identificacao_produto.dart';
+import 'package:estudos/models/lanchonete.dart';
 import 'package:estudos/models/produto.dart';
 import 'package:flutter/material.dart';
 import 'package:estudos/widgets/extended_button.dart';
@@ -5,6 +9,7 @@ import 'package:estudos/bloc/cadastro_bloc.dart';
 
 class Cadastro extends StatefulWidget {
   final Produto produto;
+
   /// Constructor
   Cadastro({
     this.produto,
@@ -15,14 +20,14 @@ class Cadastro extends StatefulWidget {
 }
 
 class _CadastroState extends State<Cadastro> {
-  /// Craido key para controlar o estado do formulario
-  ///[Form]
+  /// Craido key para controlar o estado do [Form]
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  String _mercadoria;
 
-  String _tipoMercadoria;
+  IdentificacaoProduto _mercadoria;
 
-  String _lanchonete;
+  IdentificacaoProduto _tipoMercadoria;
+
+  Lanchonete _lanchonete;
 
   /// controller do campo de quantidade
   final TextEditingController _quantMercadoriaController =
@@ -59,10 +64,12 @@ class _CadastroState extends State<Cadastro> {
     _initList();
 
     /// Para as variaveis inicializarem com os valores dos campos que estou editando
-    // _mercadoria = widget.produto.mercadoria;
-    // _lanchonete = widget.produto.lanchonete;
-    // _tipoMercadoria = widget.produto.tipoMercadoria;
-    // _quantMercadoriaController.text = widget.produto.qnt.toString();
+    if (widget.produto != null) {
+      _mercadoria = widget.produto.mercadoria;
+      _lanchonete = widget.produto.lanchonete;
+      _tipoMercadoria = widget.produto.tipoMercadoria;
+      _quantMercadoriaController.text = widget.produto.qnt.toString();
+    }
   }
 
   /*Inicializacao da lista de 
@@ -71,23 +78,6 @@ class _CadastroState extends State<Cadastro> {
   **[Lanchonete]
   */
   void _initList() {
-    List<String> produto = [
-      'Hamburgão',
-      'Coxinha',
-      'Coca-Cola',
-      'Cerveja',
-      'Agua com gás',
-      'Agua sem gás',
-    ];
-
-    List<String> tipoProduto = ['Salgado', 'Assado', 'Bebida'];
-
-    List<String> lanchonete = [
-      'Marcos Freire',
-      'Juscelino Kubitschek',
-      'Depósito'
-    ];
-
     /// Lista auxiliar para armazenar os valores
     List<DropdownMenuItem> addList = [];
     List<DropdownMenuItem> addTipoList = [];
@@ -96,7 +86,7 @@ class _CadastroState extends State<Cadastro> {
     ///Percorre cada item da lista monstrando-o
     produto.forEach((item) {
       addList.add(DropdownMenuItem(
-        child: Text(item),
+        child: Text(item.nomeMercadoria),
         value: item,
       ));
     });
@@ -104,14 +94,14 @@ class _CadastroState extends State<Cadastro> {
     tipoProduto.forEach((item) {
       addTipoList.add(DropdownMenuItem(
         value: item,
-        child: Text(item),
+        child: Text(item.tipoMercadoria),
       ));
     });
 
-    lanchonete.forEach((item) {
+    lanchonetes.forEach((item) {
       addlanchoneteList.add(DropdownMenuItem(
         value: item,
-        child: Text(item),
+        child: Text(item.lanchonete),
       ));
     });
 
@@ -197,41 +187,44 @@ class _CadastroState extends State<Cadastro> {
                       padding: EdgeInsets.fromLTRB(1, 16, 1, 0),
                       child: DropdownButtonFormField(
                         isDense: true,
-                        items: listaMercadoria,
-                        onChanged: (value) {
-                          setState(() {
-                            _mercadoria = value;
-                          });
-                        },
-
-                        ///Declaro como um value, pois a variavel nao é um controller
-                        value: _mercadoria,
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(),
-                          helperText: '',
-                          labelText: 'Mercadoria',
-                        ),
-                        validator: validate,
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(1, 16, 1, 0),
-                      child: DropdownButtonFormField(
-                        isDense: true,
                         items: listaTipoMercadoria,
                         onChanged: (value) {
                           setState(() {
                             _tipoMercadoria = value;
                           });
                         },
+
+                        ///Declaro como um value, pois a variavel nao é um controller
                         value: _tipoMercadoria,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(),
                           helperText: '',
                           labelText: 'Tipo',
                         ),
-                        validator: validate,
+                        validator: (value) {
+                          return validate(value.tipoMercadoria);
+                        },
                       ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(1, 16, 1, 0),
+                      child: DropdownButtonFormField(
+                          isDense: true,
+                          items: listaMercadoria,
+                          onChanged: (value) {
+                            setState(() {
+                              _mercadoria = value;
+                            });
+                          },
+                          value: _mercadoria,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                            helperText: '',
+                            labelText: 'Mercadoria',
+                          ),
+                          validator: (value) {
+                            return validate(value.nomeMercadoria);
+                          }),
                     ),
                     Padding(
                       padding: EdgeInsets.fromLTRB(1, 16, 1, 0),
@@ -252,20 +245,21 @@ class _CadastroState extends State<Cadastro> {
                     Padding(
                       padding: EdgeInsets.fromLTRB(1, 16, 1, 0),
                       child: DropdownButtonFormField(
-                        isDense: true,
-                        items: listaLanchonete,
-                        onChanged: (value) {
-                          setState(() {
-                            _lanchonete = value;
-                          });
-                        },
-                        value: _lanchonete,
-                        decoration: InputDecoration(
-                            border: OutlineInputBorder(),
-                            helperText: '',
-                            labelText: 'Lanchonete'),
-                        validator: validate,
-                      ),
+                          isDense: true,
+                          items: listaLanchonete,
+                          onChanged: (value) {
+                            setState(() {
+                              _lanchonete = value;
+                            });
+                          },
+                          value: _lanchonete,
+                          decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              helperText: '',
+                              labelText: 'Lanchonete'),
+                          validator: (value) {
+                            return validate(value.lanchonete);
+                          }),
                     ),
                   ],
                 ),

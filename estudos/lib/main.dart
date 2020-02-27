@@ -1,7 +1,7 @@
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:estudos/screens/cadastro.dart';
 import 'package:estudos/screens/menu.dart';
-import 'package:estudos/screens/produto_view.dart';
+import 'package:estudos/screens/lanchonete_view.dart';
 import 'package:estudos/bloc/cadastro_bloc.dart';
 import 'package:estudos/widgets/rounded_button.dart';
 import 'package:flutter/material.dart';
@@ -62,8 +62,9 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         drawer: Menu(),
         body:
-            ProdutoView(), // This trailing comma makes auto-formatting nicer for build methods.
+            LanchoneteView(), // This trailing comma makes auto-formatting nicer for build methods.
         floatingActionButton: FloatingActionButton(
+          child: Icon(Icons.add),
           onPressed: () => Navigator.push(
             context,
             MaterialPageRoute(

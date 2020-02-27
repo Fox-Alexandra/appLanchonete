@@ -48,7 +48,7 @@ class _MenuState extends State<Menu> {
               );
             },
             leading: Icon(
-              FontAwesomeIcons.edit,
+              FontAwesomeIcons.home,
               color: Colors.white,
             ),
             title: Text(
@@ -71,7 +71,7 @@ class _MenuState extends State<Menu> {
               );
             },
             leading: Icon(
-              FontAwesomeIcons.home,
+              FontAwesomeIcons.edit,
               color: Colors.white,
             ),
             title: Text(

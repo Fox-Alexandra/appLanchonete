@@ -32,6 +32,7 @@ dev_dependencies:
   font_awesome_flutter: ^8.2.0
   flutter_spinkit: '^2.1.0'
   sweetalert: ^0.0.1
+  transparent_image: ^0.1.0
 
 
 # For information on the generic Dart part of this file, see the
@@ -39,6 +40,10 @@ dev_dependencies:
 
 # The following section is specific to Flutter.
 flutter:
+  assets:
+    - lib/assets/img1.jpeg
+    - lib/assets/img2.jpeg
+    - lib/assets/img3.jpeg
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
