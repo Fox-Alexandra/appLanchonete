@@ -22,11 +22,15 @@ class _ConteudoProdutoState extends State<ProdutoView> {
         }
       });
 
+      int contadorTotal = 0;
+      widget.listaProduto.forEach((item) {
+        contadorTotal = contadorTotal + item.qnt;
+      });
+
       return Container(
         height: 120,
         padding: EdgeInsets.only(top: 10),
-        child: Column (
-          children: <Widget> [InputDecorator(
+        child: InputDecorator(
           decoration: InputDecoration(
             enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.grey, width: 1),
@@ -51,33 +55,8 @@ class _ConteudoProdutoState extends State<ProdutoView> {
             ),
           ),
         ),
-          ],
-        ),
       );
     }).toList();
-  }
-
-  @override
-  Widget _buildTotal() {
-          int contadorTotal = 0;
-      widget.listaProduto.forEach((item) {
-        contadorTotal = contadorTotal + item.qnt;
-      });
-    return Container(
-      child: ListTile(
-                title: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Text(
-                      'TOTAL:',
-                      style: TextStyle(fontSize: 20),
-                    ),
-                    Text(
-                      '${contadorTotal}',
-                      style: TextStyle(fontSize: 20, color: Colors.green),)
-                  ],),
-              ),
-    );
   }
 
   @override
@@ -90,7 +69,6 @@ class _ConteudoProdutoState extends State<ProdutoView> {
       body: Container(
         child: ListView(
           children: _buildList(),
-          
         ),
       ),
     );

@@ -33,7 +33,9 @@ class CadastroBloc extends BlocBase {
           return alerta;
         },
       ).then((retornado) {});
+
       await Future.delayed(Duration(milliseconds: 500));
+      alerta.message = '';
       alerta.isLoading = false;
       alerta.sucess = true;
       alerta.message = 'Cadastrado com sucesso!';
