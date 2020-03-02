@@ -152,8 +152,13 @@ class _CadastroState extends State<Cadastro> {
                     ? MediaQuery.of(context).padding.bottom
                     : 16,
               ),
-              child: Text('Cadastrar'),
-            )
+              child: Text(
+                'Cadastrar',
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+            ),
           ],
         ),
       ),
@@ -163,7 +168,7 @@ class _CadastroState extends State<Cadastro> {
   ///[Form]
   Widget _buildForm(BuildContext context) {
     return SingleChildScrollView(
-      padding: EdgeInsets.only(top: 39),
+      padding: EdgeInsets.only(top: 15),
       child: Form(
         autovalidate: haveError,
         key: _formKey,

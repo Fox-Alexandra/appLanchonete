@@ -74,14 +74,14 @@ class _ConteudoProdutoState extends State<ProdutoView> {
             Text(
               'Total',
               style: TextStyle(
-                  fontSize: 29,
+                  fontSize: 26,
                   color: Colors.black87,
                   fontWeight: FontWeight.bold),
             ),
             Text(
               '=',
               style: TextStyle(
-                fontSize: 29,
+                fontSize: 26,
                 color: Colors.black,
                 fontWeight: FontWeight.bold,
               ),
@@ -89,7 +89,7 @@ class _ConteudoProdutoState extends State<ProdutoView> {
             Text(
               '${contadorTotal}',
               style: TextStyle(
-                fontSize: 29,
+                fontSize: 26,
                 color: Colors.red,
                 fontWeight: FontWeight.bold,
               ),
@@ -116,6 +116,7 @@ class _ConteudoProdutoState extends State<ProdutoView> {
             ),
           ),
           Container(
+            margin: EdgeInsets.only(top: 10),
             height: MediaQuery.of(context).size.height / 9,
             color: Colors.lightGreen,
             child: _buildTotal(),
