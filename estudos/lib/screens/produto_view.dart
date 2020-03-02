@@ -22,11 +22,6 @@ class _ConteudoProdutoState extends State<ProdutoView> {
         }
       });
 
-      int contadorTotal = 0;
-      widget.listaProduto.forEach((item) {
-        contadorTotal = contadorTotal + item.qnt;
-      });
-
       return Container(
         height: 120,
         padding: EdgeInsets.only(top: 10),
@@ -59,6 +54,52 @@ class _ConteudoProdutoState extends State<ProdutoView> {
     }).toList();
   }
 
+  Widget _buildTotal() {
+    int contadorTotal = 0;
+    widget.listaProduto.forEach((item) {
+      contadorTotal = contadorTotal + item.qnt;
+    });
+
+    return Container(
+      child: InputDecorator(
+        expands: true,
+        decoration: InputDecoration(
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.grey, width: 1),
+          ),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Text(
+              'Total',
+              style: TextStyle(
+                  fontSize: 29,
+                  color: Colors.black87,
+                  fontWeight: FontWeight.bold),
+            ),
+            Text(
+              '=',
+              style: TextStyle(
+                fontSize: 29,
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            Text(
+              '${contadorTotal}',
+              style: TextStyle(
+                fontSize: 29,
+                color: Colors.red,
+                fontWeight: FontWeight.bold,
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,10 +107,20 @@ class _ConteudoProdutoState extends State<ProdutoView> {
         backgroundColor: Colors.lightGreen,
         title: Text(widget.title),
       ),
-      body: Container(
-        child: ListView(
-          children: _buildList(),
-        ),
+      body: Column(
+        children: [
+          Container(
+            height: MediaQuery.of(context).size.height / 1.5,
+            child: ListView(
+              children: _buildList(),
+            ),
+          ),
+          Container(
+            height: MediaQuery.of(context).size.height / 9,
+            color: Colors.lightGreen,
+            child: _buildTotal(),
+          ),
+        ],
       ),
     );
   }
