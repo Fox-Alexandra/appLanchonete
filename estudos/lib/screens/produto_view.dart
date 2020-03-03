@@ -33,6 +33,7 @@ class _ConteudoProdutoState extends State<ProdutoView> {
           ),
           child: ListTile(
             title: Row(
+              mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Text(
@@ -110,13 +111,12 @@ class _ConteudoProdutoState extends State<ProdutoView> {
       body: Column(
         children: [
           Container(
-            height: MediaQuery.of(context).size.height / 1.5,
+            height: MediaQuery.of(context).size.height / 1.35,
             child: ListView(
               children: _buildList(),
             ),
           ),
           Container(
-            margin: EdgeInsets.only(top: 10),
             height: MediaQuery.of(context).size.height / 9,
             color: Colors.lightGreen,
             child: _buildTotal(),

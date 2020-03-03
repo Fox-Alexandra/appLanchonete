@@ -8,43 +8,6 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:568765223238:android:ceb8be8db1dbefd2e35547",
-        "android_client_info": {
-          "package_name": "Guarucana.Doce"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "568765223238-1047levlc3budmmdcq418uppva9g50s2.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "Guarucana.Doce",
-            "certificate_hash": "eb7d784b2cfb9ee504b6ad84e854ec84d37047c2"
-          }
-        },
-        {
-          "client_id": "568765223238-gug9u2gu8de9p88dtolljg8ci5v37b48.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyCToWXZZIoLlxt5WxP9giSaqZu0c0Lz7_o"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "568765223238-gug9u2gu8de9p88dtolljg8ci5v37b48.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
         "mobilesdk_app_id": "1:568765223238:android:5b46807069164163e35547",
         "android_client_info": {
           "package_name": "com.guarucanadoce.app"
