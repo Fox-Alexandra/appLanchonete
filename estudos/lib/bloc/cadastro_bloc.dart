@@ -34,11 +34,7 @@ class CadastroBloc extends BlocBase {
         },
       ).then((retornado) {});
 
-      await Future.delayed(Duration(milliseconds: 500));
       alerta.message = '';
-      alerta.isLoading = false;
-      alerta.sucess = true;
-      alerta.message = 'Cadastrado com sucesso!';
       alerta.controller.notifyListeners();
 
       /// Condicao para que se um produto ja existir ele cocatenar com o ja existente
@@ -46,10 +42,24 @@ class CadastroBloc extends BlocBase {
         cadastrado.addAll({
           produto.lanchonete: cadastrado[produto.lanchonete]..add(produto),
         });
+
+        await Future.delayed(Duration(milliseconds: 500));
+        alerta.message = '';
+        alerta.isLoading = false;
+        alerta.sucess = true;
+        alerta.message = 'Cadastrado com sucesso!';
+        alerta.controller.notifyListeners();
       } else {
         cadastrado.addAll({
           produto.lanchonete: [produto],
         });
+
+        await Future.delayed(Duration(milliseconds: 500));
+        alerta.message = '';
+        alerta.isLoading = false;
+        alerta.sucess = true;
+        alerta.message = 'Cadastrado com sucesso!';
+        alerta.controller.notifyListeners();
       }
     } catch (e) {
       showDialog(
@@ -58,6 +68,9 @@ class CadastroBloc extends BlocBase {
           return alerta;
         },
       ).then((retornado) {});
+
+      alerta.message = '';
+      alerta.controller.notifyListeners();
 
       await Future.delayed(Duration(milliseconds: 500));
       alerta.isLoading = false;

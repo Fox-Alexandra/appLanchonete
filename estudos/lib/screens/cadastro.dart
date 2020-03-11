@@ -72,6 +72,15 @@ class _CadastroState extends State<Cadastro> {
     }
   }
 
+  @override
+  void dispose() {
+    super.dispose();
+    _quantMercadoriaController.clear();
+    listaLanchonete.clear();
+    listaMercadoria.clear();
+    listaTipoMercadoria.clear();
+  }
+
   /*Inicializacao da lista de 
   **[Mercadoria]
   **[TipoProduto]
@@ -141,7 +150,6 @@ class _CadastroState extends State<Cadastro> {
                     ),
                     context,
                   );
-                  _formKey.currentState.reset();
                 }
               },
               padding: EdgeInsets.fromLTRB(
